@@ -3,28 +3,28 @@
 @tailwind utilities;
 
 .banner {
-    background-image: url('./img/banner.jpg');
+    background-image: url("./img/banner.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
     height: 180px;
 }
 
 .btn1 {
-    background-image: url('./img/rock.png');
+    background-image: url("./img/rock.png");
     background-size: cover;
     width:120px;
     background-repeat: no-repeat;
     height: 120px;
 }
 .btn2 {
-    background-image: url('./img/paper.png');
+    background-image: url("./img/paper.png");
     background-size: cover;
     width: 120px;
     background-repeat: no-repeat;
     height: 120px;
 }
 .btn3 {
-    background-image: url('./img/scissor.png');
+    background-image: url("./img/scissor.png");
     background-size: cover;
     width: 120px;
     background-repeat: no-repeat;
@@ -32,7 +32,7 @@
 }
 
 .overlap {
-    background-image: url('./img/guy-t.png');
+    background-image: url("./img/guy-t.png");
     background-size: cover;
     width: 250px;
     height: 250px;
