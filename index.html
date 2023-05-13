@@ -5,14 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <link href="/dist/output.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <button class="btn">Rock</button>
-        <button class="btn">Paper</button>
-        <button class="btn">Scissor</button>    
+    <div class="container flex flex-col">
+        <div class="banner"></div>
+        <div class="buttons flex align-center justify-around py-10 bg-gradient-to-r from-sky-500 to-orange-500">
+            <button id="Rock" class="btn btn1 text-white font-bold py-2 px-4 rounded transition duration-300 transform hover:scale-110"></button>
+            <button id="Paper" class="btn btn2 text-white font-bold py-2 px-4 rounded transition duration-300 transform hover:scale-110"></button>
+            <button id="Scissor" class="btn btn3 text-white font-bold py-2 px-4 rounded transition duration-300 transform hover:scale-110"></button>
+
+        </div>
+        
+        <div class="output flex align-center justify-around font-bold py-5">
+            <div class="flex flex-row border-solid border-2 border-rose-500">
+                <p>YOU :&nbsp</p>
+                <p class="userChoice"></p>
+            </div>
+            <div class="flex flex-row border-solid border-2 border-rose-500">
+                <p>PC :&nbsp</p>
+                <p class="pcChoice"></p>
+            </div>
+            
+        </div>
+
+        <div class="results flex align-center justify-center font-bold py-5 "></div>
+        <div class="finalResults flex align-center justify-center font-bold py-5">
+        </div>
+        <div class="timer flex align-center justify-center font-bold py-5"></div>
+
     </div>
     <div id="timer"></div>
     <script src="index.js"></script>

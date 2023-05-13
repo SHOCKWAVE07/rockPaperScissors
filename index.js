@@ -1,85 +1,89 @@
+
 function getComputerChoice() {
-    const a = ["rock", "paper", "scissors"];
-    const choice = Math.floor(Math.random() * a.length);
-    return a[choice];
+  const a = ["Rock", "Paper", "Scissor"];
+  const choice = Math.floor(Math.random() * a.length);
+  return a[choice];
+}
+
+function playerSelection(selection) {
+  return selection;
+}
+
+function playRound(player, pc) {
+  if (player === pc) {
+    return -1;
+  } else if (
+    (player === "Rock" && pc === "Scissor") ||
+    (player === "Paper" && pc === "Rock") ||
+    (player === "Scissor" && pc === "Paper")
+  ) {
+    return 1;
+  } else {
+    return 0;
   }
-  
-  function playerSelection(selection) {
-    
-    selection = selection.toLowerCase();
-    
-  
-    return selection;
-  }
-  
-  function playRound(player, pc) {
-    if (player === pc) {
-      return -1;
-    } else if (
-      (player === "rock" && pc === "scissor") ||
-      (player === "paper" && pc === "rock") ||
-      (player === "scissor" && pc === "paper")
-    ) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-  
-  function game() {
-    let rounds = 5;
-    let playerScore = 0;
-    let pcScore = 0;
-    let gameover=false
-    const bans = document.querySelectorAll(".container button");
-    bans.forEach((btn) =>
-      btn.addEventListener("click", function () {
-        const playerChoice = playerSelection(btn.textContent);
-        const pcChoice = getComputerChoice();
-  
-        const play = playRound(playerChoice, pcChoice);
-        if(gameover==true){
-            return;
-        }
-        if (play === 1) {
-          playerScore++;
-        } else if (play === -1) {
-            const h3 = document.createElement("h3")
-            const container = document.querySelector(".container");
-            h3.textContent=`It's Tie`;
-            container.appendChild(h3);
+}
+
+function game() {
+  let yourounds = 5;
+  let pcrounds = 5;
+  let playerScore = 0;
+  let pcScore = 0;
+  let gameOngoing = true;
+
+  const bans = document.querySelectorAll(".container button");
+  bans.forEach((btn) =>
+    btn.addEventListener("click", function () {
+      if (!gameOngoing) {
+        return;
+      }
+
+      const playerChoice = playerSelection(btn.id);
+
+      const pcChoice = getComputerChoice();
+
+      const play = playRound(playerChoice, pcChoice);
+
+      const pcchoice = document.querySelector(".pcChoice");
+      pcchoice.textContent = `${pcChoice}`;
+
+      const userChoice = document.querySelector(".userChoice");
+      userChoice.textContent = `${playerChoice}`;
+
+      if (play === 1) {
+        playerScore++;
+        yourounds--;
+      } else if (play === 0) {
+        pcScore++;
+        pcrounds--;
+      }
+
+      const results = document.querySelector(".results");
+      results.textContent = `Player: ${playerScore}  PC: ${pcScore}`;
+
+      if (pcrounds === 0 || yourounds === 0) {
+        let winner = null;
+        if (playerScore > pcScore) {
+          winner = "Player";
         } else {
-          pcScore++;
+          winner = "PC";
         }
-        rounds--;
+        const final = document.querySelector(".finalResults");
+        final.textContent = `Final Score:-  Player: ${playerScore}  PC: ${pcScore}  The ${winner} wins`;
+        gameOngoing = false;
 
-        const h2 = document.createElement("h2")
-        const container = document.querySelector(".container");
-        h2.textContent=`Player: ${playerScore}  PC: ${pcScore}`;
-        container.appendChild(h2);
-
-        if (rounds === 0) {
-          let winner = null;
-          if (playerScore > pcScore) {
-            winner = "Player";
-          } else {
-            winner = "PC";
+        const timer = document.querySelector('.timer')
+        let timeLeft = 5; // set timer for 3 seconds
+        const countdown = setInterval(() => {
+          timer.textContent = `  Reloading in ${timeLeft}...`;
+          timeLeft--;
+          if (timeLeft < 0) {
+            clearInterval(countdown);
+            location.reload();
           }
-        const h1 = document.createElement("h1")
-        const container = document.querySelector(".container");  
-        h1.textContent=`Final Score:-  Player: ${playerScore}  PC: ${pcScore}  The ${winner} wins`;
-        container.appendChild(h1);
-        
-        gameover=true
+        }, 1000);
+      }
+    })
+  );
+}
 
-        setTimeout(function() {
-        location.reload();
-        }, 3000);
-      
-       
-
-        }
-      })
-    );
-  }
-  game();
+game();
